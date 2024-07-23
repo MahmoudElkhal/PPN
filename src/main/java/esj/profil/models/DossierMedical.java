@@ -1,0 +1,48 @@
+package esj.profil.models;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.Builder;
+
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class DossierMedical {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ElementCollection
+    private List<AntecedentFamilial> antecedentsFamiliaux;
+    @ElementCollection
+    private List<AntecedentPersonnel> antecedentsPersonnels;
+
+    @OneToMany(mappedBy = "dossierMedical", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Consultation> historiqueConsultations;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "jeune_id")
+    @JsonBackReference
+    private Jeune jeune;
+
+
+}
