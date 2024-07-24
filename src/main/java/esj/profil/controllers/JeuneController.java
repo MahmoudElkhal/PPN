@@ -1,5 +1,6 @@
 package esj.profil.controllers;
 
+import esj.profil.models.Consultation;
 import esj.profil.models.Jeune;
 import esj.profil.services.JeuneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/jeunes")
 public class JeuneController {
-
-    private final JeuneService jeuneService;
-
     @Autowired
-    public JeuneController(JeuneService jeuneService) {
-        this.jeuneService = jeuneService;
-    }
+    private JeuneService jeuneService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Jeune> getJeuneById(@PathVariable Long id) {
@@ -62,6 +58,15 @@ public class JeuneController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{id}/consultations")
+    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id, @RequestBody Consultation consultation) {
+        Jeune jeune = jeuneService.addConsultationToJeune(id, consultation);
+        if (jeune == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(jeune);
     }
 }
 
