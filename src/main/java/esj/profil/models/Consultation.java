@@ -34,12 +34,14 @@ public class Consultation {
     private String examenClinique;
     @Embedded
     private ExamenMedical examenMedical;
-    private String Diagnostic;
+    private String Diagnostic; // "oui" - "non" - "correspondance" - "tele-expertise"
     private String Ordonnance;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     private Jeune jeune;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)

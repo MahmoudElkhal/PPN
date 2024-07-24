@@ -13,12 +13,8 @@ import java.util.List;
 @RequestMapping("/consultations")
 public class ConsultationController {
 
-    private final ConsultationService consultationService;
-
     @Autowired
-    public ConsultationController(ConsultationService consultationService) {
-        this.consultationService = consultationService;
-    }
+    private ConsultationService consultationService;
 
     @PostMapping
     public ResponseEntity<Consultation> createConsultation(@RequestBody Consultation consultation) {

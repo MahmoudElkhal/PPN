@@ -1,5 +1,6 @@
 package esj.profil.controllers;
 
+import esj.profil.dtos.ConsultationDTO;
 import esj.profil.models.Consultation;
 import esj.profil.models.Jeune;
 import esj.profil.services.JeuneService;
@@ -60,13 +61,30 @@ public class JeuneController {
         }
     }
 
+//    @PostMapping("/{id}/consultations")
+//    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id, @RequestBody Consultation consultation) {
+//        Jeune jeune = jeuneService.addConsultationToJeune(id, consultation);
+//        if (jeune == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(jeune);
+//    }
     @PostMapping("/{id}/consultations")
-    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id, @RequestBody Consultation consultation) {
-        Jeune jeune = jeuneService.addConsultationToJeune(id, consultation);
+    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id, @RequestBody ConsultationDTO consultationDTO) {
+        Jeune jeune = jeuneService.addConsultationDTOToJeune(id, consultationDTO);
         if (jeune == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(jeune);
     }
+
+//    @GetMapping("/{id}/consultations")
+//    public ResponseEntity<List<Consultation>> getConsultationsByJeune(@PathVariable Long id) {
+//        List<Consultation> consultations = jeuneService.getConsultationsByJeune(id);
+//        if (consultations == null || consultations.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(consultations);
+//    }
 }
 

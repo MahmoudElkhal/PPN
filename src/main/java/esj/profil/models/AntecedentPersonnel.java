@@ -20,6 +20,6 @@ public class AntecedentPersonnel {
     private String type;
     private String specification;
     private String specificationAutre;
-    private int nombreAnnee;
+    private int nombreAnnee ;
 }
 

@@ -1,5 +1,6 @@
 package esj.profil.services;
 
+import esj.profil.dtos.ConsultationDTO;
 import esj.profil.models.Consultation;
 import esj.profil.models.Jeune;
 
@@ -11,4 +12,6 @@ public interface JeuneService {
     Jeune saveOrUpdate(Jeune jeune);
     void deleteById(Long id);
     Jeune addConsultationToJeune(Long jeuneId, Consultation consultation);
+
+    Jeune addConsultationDTOToJeune(Long id, ConsultationDTO consultationDTO);
 }

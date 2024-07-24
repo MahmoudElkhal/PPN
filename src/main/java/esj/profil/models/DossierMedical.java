@@ -2,8 +2,7 @@ package esj.profil.models;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -41,7 +40,8 @@ public class DossierMedical {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "jeune_id")
-    @JsonBackReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Jeune jeune;
 
 
