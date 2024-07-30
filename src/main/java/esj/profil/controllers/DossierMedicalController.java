@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/dossiersmedicaux")
+@CrossOrigin(origins = "http://localhost:3000")
 public class DossierMedicalController {
 
     @Autowired
@@ -37,7 +38,8 @@ public class DossierMedicalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DossierMedical> updateDossierMedical(@PathVariable Long id, @RequestBody DossierMedical dossierMedical) {
+    public ResponseEntity<DossierMedical> updateDossierMedical(@PathVariable Long id,
+            @RequestBody DossierMedical dossierMedical) {
         DossierMedical existingDossierMedical = dossierMedicalService.getById(id);
         if (existingDossierMedical == null) {
             return ResponseEntity.notFound().build();

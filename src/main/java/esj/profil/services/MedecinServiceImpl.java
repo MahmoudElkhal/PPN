@@ -1,4 +1,4 @@
-package esj.profil.services.impl;
+package esj.profil.services;
 
 import esj.profil.models.Medecin;
 import esj.profil.daos.MedecinRepository;

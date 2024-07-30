@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jeunes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class JeuneController {
     @Autowired
     private JeuneService jeuneService;
@@ -61,16 +62,18 @@ public class JeuneController {
         }
     }
 
-//    @PostMapping("/{id}/consultations")
-//    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id, @RequestBody Consultation consultation) {
-//        Jeune jeune = jeuneService.addConsultationToJeune(id, consultation);
-//        if (jeune == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(jeune);
-//    }
+    // @PostMapping("/{id}/consultations")
+    // public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id,
+    // @RequestBody Consultation consultation) {
+    // Jeune jeune = jeuneService.addConsultationToJeune(id, consultation);
+    // if (jeune == null) {
+    // return ResponseEntity.notFound().build();
+    // }
+    // return ResponseEntity.ok(jeune);
+    // }
     @PostMapping("/{id}/consultations")
-    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id, @RequestBody ConsultationDTO consultationDTO) {
+    public ResponseEntity<Jeune> addConsultationToJeune(@PathVariable Long id,
+            @RequestBody ConsultationDTO consultationDTO) {
         Jeune jeune = jeuneService.addConsultationDTOToJeune(id, consultationDTO);
         if (jeune == null) {
             return ResponseEntity.notFound().build();
@@ -78,13 +81,13 @@ public class JeuneController {
         return ResponseEntity.ok(jeune);
     }
 
-//    @GetMapping("/{id}/consultations")
-//    public ResponseEntity<List<Consultation>> getConsultationsByJeune(@PathVariable Long id) {
-//        List<Consultation> consultations = jeuneService.getConsultationsByJeune(id);
-//        if (consultations == null || consultations.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(consultations);
-//    }
+    // @GetMapping("/{id}/consultations")
+    // public ResponseEntity<List<Consultation>>
+    // getConsultationsByJeune(@PathVariable Long id) {
+    // List<Consultation> consultations = jeuneService.getConsultationsByJeune(id);
+    // if (consultations == null || consultations.isEmpty()) {
+    // return ResponseEntity.notFound().build();
+    // }
+    // return ResponseEntity.ok(consultations);
+    // }
 }
-

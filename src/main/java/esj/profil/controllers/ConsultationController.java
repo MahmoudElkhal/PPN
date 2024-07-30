@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/consultations")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ConsultationController {
 
     @Autowired
@@ -22,13 +23,14 @@ public class ConsultationController {
         return new ResponseEntity<>(savedConsultation, HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Consultation> updateConsultation(
-//            @PathVariable Long id,
-//            @RequestBody Consultation consultation) {
-//        Consultation updatedConsultation = consultationService.updateConsultation(id, consultation);
-//        return new ResponseEntity<>(updatedConsultation, HttpStatus.OK);
-//    }
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Consultation> updateConsultation(
+    // @PathVariable Long id,
+    // @RequestBody Consultation consultation) {
+    // Consultation updatedConsultation = consultationService.updateConsultation(id,
+    // consultation);
+    // return new ResponseEntity<>(updatedConsultation, HttpStatus.OK);
+    // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteConsultation(@PathVariable Long id) {
@@ -48,4 +50,3 @@ public class ConsultationController {
         return new ResponseEntity<>(consultations, HttpStatus.OK);
     }
 }
-

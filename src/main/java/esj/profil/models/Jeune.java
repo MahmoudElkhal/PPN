@@ -1,6 +1,5 @@
 package esj.profil.models;
 
-
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -30,12 +29,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Jeune{
+public class Jeune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Enumerated(EnumType.STRING)
+    private String nom;
+
+    private String prenom;
+
+    // @Enumerated(EnumType.STRING)
     private String sexe;
 
     private Date dateNaissance;
@@ -50,13 +53,12 @@ public class Jeune{
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dossier_medical_id")
-    @JsonManagedReference
+    // @JsonManagedReference
     private DossierMedical dossierMedial;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "info_user_id")
+    // @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "info_user_id")
 
-//    private InfoUser infoUser;
+    // private InfoUser infoUser;
 
 }
-
