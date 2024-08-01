@@ -105,44 +105,7 @@ public class JeuneServiceImpl implements JeuneService {
     }
 
 
-//    public Jeune addConsultationDTOToJeune(Long id, ConsultationDTO consultationDTO) {
-//        System.out.println(consultationDTO);
-//        Optional<Jeune> optionalJeune = jeuneRepository.findById(id);
-//        if (optionalJeune.isPresent()) {
-//            Jeune jeune = optionalJeune.get();
-//            System.out.println("jeune is not null");
-//            Consultation consultation = Consultation.builder()
-//                    .date(consultationDTO.getDate())
-//                    .motif(consultationDTO.getMotif())
-//                    .antecedentPersonnel(AntecedentPersonnel.builder()
-//                            .type(consultationDTO.getAntecedentPersonnel().getType())
-//                            .specification(consultationDTO.getAntecedentPersonnel().getSpecification())
-//                            .specificationAutre(consultationDTO.getAntecedentPersonnel().getSpecificationAutre())
-//                            .nombreAnnee(consultationDTO.getAntecedentPersonnel().getNombreAnnee())
-//                            .build())
-//                    .antecedentFamilial(AntecedentFamilial.builder()
-//                            .typeAntFam(consultationDTO.getAntecedentFamilial().getTypeAntFam())
-//                            .autre(consultationDTO.getAntecedentFamilial().getAutre())
-//                            .build())
-//                    .historiqueClinique(consultationDTO.getHistoriqueClinique())
-//                    .examenClinique(consultationDTO.getExamenClinique())
-//                    .examenMedical(ExamenMedical.builder()
-//                            .typeExamen(consultationDTO.getExamenMedical().getTypeExamen())
-//                            .specificationExamen(consultationDTO.getExamenMedical().getSpecificationExamen())
-//                            .autreSpecification(consultationDTO.getExamenMedical().getAutreSpecification())
-//                            .build())
-//                    .Diagnostic(consultationDTO.getDiagnostic())
-//                    .Ordonnance(consultationDTO.getOrdonnance())
-//                    .jeune(jeune)
-//                    .medecin(medecinRepository.findById(consultationDTO.getMedecinId()).orElse(null)) // Assuming you have a constructor or way to set ID
-//                    .dossierMedical(jeune.getDossierMedial()) // Same assumption
-//                    .build();
-//
-//
-//            return addConsultationToJeune(id,consultation);
-//        }
-//        return null;
-//    }
+
 
     @Override
     public Jeune addConsultationToJeune(Long jeuneId, Consultation consultation) {
@@ -155,7 +118,37 @@ public class JeuneServiceImpl implements JeuneService {
                 jeuneRepository.save(jeune);
             }
         }
+        jeune.getDossierMedial().getAntecedentsPersonnels().add(consultation.getAntecedentPersonnel());
+        jeune.getDossierMedial().getAntecedentsFamiliaux().add(consultation.getAntecedentFamilial());
         return jeune;
+    }
+
+    public Jeune addAntecedentFamilialToJeune(Long id, AntecedentFamilial antecedentFamilial) {
+        Optional<Jeune> jeuneOptional = jeuneRepository.findById(id);
+        if (jeuneOptional.isPresent()) {
+            Jeune jeune = jeuneOptional.get();
+            DossierMedical dossierMedical = jeune.getDossierMedial();
+            if (dossierMedical != null) {
+                dossierMedical.getAntecedentsFamiliaux().add(antecedentFamilial);
+                jeuneRepository.save(jeune);
+            }
+            return jeune;
+        }
+        return null;
+    }
+
+    public Jeune addAntecedentPersonnelToJeune(Long id, AntecedentPersonnel antecedentPersonnel) {
+        Optional<Jeune> jeuneOptional = jeuneRepository.findById(id);
+        if (jeuneOptional.isPresent()) {
+            Jeune jeune = jeuneOptional.get();
+            DossierMedical dossierMedical = jeune.getDossierMedial();
+            if (dossierMedical != null) {
+                dossierMedical.getAntecedentsPersonnels().add(antecedentPersonnel);
+                jeuneRepository.save(jeune);
+            }
+            return jeune;
+        }
+        return null;
     }
 }
 

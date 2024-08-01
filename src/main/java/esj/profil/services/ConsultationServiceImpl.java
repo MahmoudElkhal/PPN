@@ -22,25 +22,6 @@ public class ConsultationServiceImpl implements ConsultationService {
         return consultationRepository.save(consultation);
     }
 
-//    @Override
-//    public Consultation updateConsultation(Long id, Consultation consultation) {
-//        Optional<Consultation> optionalConsultation = consultationRepository.findById(id);
-//        if (optionalConsultation.isPresent()) {
-//            Consultation existingConsultation = optionalConsultation.get();
-//            existingConsultation.setDate(consultation.getDate());
-//            existingConsultation.setDiagnostic(consultation.getDiagnostic());
-//            existingConsultation.setPrestation(consultation.getPrestation());
-//            existingConsultation.setRef(consultation.getRef());
-//            existingConsultation.setObservations(consultation.getObservations());
-////            existingConsultation.setJeune(consultation.getJeune());
-//            existingConsultation.setMedecin(consultation.getMedecin());
-//            existingConsultation.setCorrespondance(consultation.getCorrespondance());
-//            existingConsultation.setPrescriptions(consultation.getPrescriptions());
-//            return consultationRepository.save(existingConsultation);
-//        } else {
-//            throw new RuntimeException("Consultation not found with id " + id);
-//        }
-//    }
 
     @Override
     public void deleteConsultation(Long id) {
