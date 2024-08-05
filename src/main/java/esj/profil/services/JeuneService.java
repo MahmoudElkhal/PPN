@@ -1,6 +1,8 @@
 package esj.profil.services;
 
 import esj.profil.dtos.ConsultationDTO;
+import esj.profil.models.AntecedentFamilial;
+import esj.profil.models.AntecedentPersonnel;
 import esj.profil.models.Consultation;
 import esj.profil.models.Jeune;
 
@@ -14,4 +16,7 @@ public interface JeuneService {
     Jeune addConsultationToJeune(Long jeuneId, Consultation consultation);
 
     Jeune addConsultationDTOToJeune(Long id, ConsultationDTO consultationDTO);
+    Jeune addAntecedentPersonnelToJeune(Long id, AntecedentPersonnel antecedentPersonnel);
+    Jeune addAntecedentFamilialToJeune(Long id, AntecedentFamilial antecedentFamilial);
+
 }

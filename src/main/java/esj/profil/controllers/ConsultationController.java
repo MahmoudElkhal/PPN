@@ -23,15 +23,6 @@ public class ConsultationController {
         return new ResponseEntity<>(savedConsultation, HttpStatus.CREATED);
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Consultation> updateConsultation(
-    // @PathVariable Long id,
-    // @RequestBody Consultation consultation) {
-    // Consultation updatedConsultation = consultationService.updateConsultation(id,
-    // consultation);
-    // return new ResponseEntity<>(updatedConsultation, HttpStatus.OK);
-    // }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteConsultation(@PathVariable Long id) {
         consultationService.deleteConsultation(id);

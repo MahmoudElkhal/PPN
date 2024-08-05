@@ -1,7 +1,5 @@
 package esj.profil.dtos;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
