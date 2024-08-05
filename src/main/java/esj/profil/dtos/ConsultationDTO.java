@@ -1,6 +1,7 @@
 package esj.profil.dtos;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,13 +21,11 @@ public class ConsultationDTO {
     public String motif;
     public AntecedentPersonnelDTO antecedentPersonnel;
     public AntecedentFamilialDTO antecedentFamilial;
-    public ExamenMedicalDTO examenMedical;
-    public String historiqueClinique;
-    public String examenClinique;
-    public String Diagnostic; // "oui" - "non" - "correspondance" - "tele-expertise"
-    public String Ordonnance;
+    public String interrogatoire;
+    public List<ExamenMedicalDTO> examenMedicals;
+
+    public String conseils;
     public Long jeuneId;
     public Long medecinId;
     public Long dossierMedicalId;
 }
-

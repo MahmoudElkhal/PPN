@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class JeuneServiceImpl implements JeuneService {
@@ -22,7 +23,6 @@ public class JeuneServiceImpl implements JeuneService {
     private ConsultationRepository consultationRepository;
     @Autowired
     private MedecinRepository medecinRepository;
-
 
     public Jeune getById(Long id) {
         return jeuneRepository.findById(id).orElse(null);
@@ -65,6 +65,14 @@ public class JeuneServiceImpl implements JeuneService {
                     return null;
                 }
 
+                List<ExamenMedical> examenMedicals = consultationDTO.getExamenMedicals().stream()
+                        .map(examenMedicalDTO -> ExamenMedical.builder()
+                                .typeExamen(examenMedicalDTO.getTypeExamen())
+                                .specificationExamen(examenMedicalDTO.getSpecificationExamen())
+                                .autreSpecification(examenMedicalDTO.getAutreSpecification())
+                                .build())
+                        .collect(Collectors.toList());
+
                 Consultation consultation = Consultation.builder()
                         .date(consultationDTO.getDate())
                         .motif(consultationDTO.getMotif())
@@ -78,15 +86,9 @@ public class JeuneServiceImpl implements JeuneService {
                                 .typeAntFam(consultationDTO.getAntecedentFamilial().getTypeAntFam())
                                 .autre(consultationDTO.getAntecedentFamilial().getAutre())
                                 .build())
-                        .historiqueClinique(consultationDTO.getHistoriqueClinique())
-                        .examenClinique(consultationDTO.getExamenClinique())
-                        .examenMedical(ExamenMedical.builder()
-                                .typeExamen(consultationDTO.getExamenMedical().getTypeExamen())
-                                .specificationExamen(consultationDTO.getExamenMedical().getSpecificationExamen())
-                                .autreSpecification(consultationDTO.getExamenMedical().getAutreSpecification())
-                                .build())
-                        .Diagnostic(consultationDTO.getDiagnostic())
-                        .Ordonnance(consultationDTO.getOrdonnance())
+                        .interrogatoire(consultationDTO.getInterrogatoire())
+                        .examenMedicals(examenMedicals)
+                        .conseils(consultationDTO.getConseils())
                         .jeune(jeune)
                         .medecin(medecin)
                         .dossierMedical(dossierMedical)
@@ -104,45 +106,46 @@ public class JeuneServiceImpl implements JeuneService {
         }
     }
 
-
-//    public Jeune addConsultationDTOToJeune(Long id, ConsultationDTO consultationDTO) {
-//        System.out.println(consultationDTO);
-//        Optional<Jeune> optionalJeune = jeuneRepository.findById(id);
-//        if (optionalJeune.isPresent()) {
-//            Jeune jeune = optionalJeune.get();
-//            System.out.println("jeune is not null");
-//            Consultation consultation = Consultation.builder()
-//                    .date(consultationDTO.getDate())
-//                    .motif(consultationDTO.getMotif())
-//                    .antecedentPersonnel(AntecedentPersonnel.builder()
-//                            .type(consultationDTO.getAntecedentPersonnel().getType())
-//                            .specification(consultationDTO.getAntecedentPersonnel().getSpecification())
-//                            .specificationAutre(consultationDTO.getAntecedentPersonnel().getSpecificationAutre())
-//                            .nombreAnnee(consultationDTO.getAntecedentPersonnel().getNombreAnnee())
-//                            .build())
-//                    .antecedentFamilial(AntecedentFamilial.builder()
-//                            .typeAntFam(consultationDTO.getAntecedentFamilial().getTypeAntFam())
-//                            .autre(consultationDTO.getAntecedentFamilial().getAutre())
-//                            .build())
-//                    .historiqueClinique(consultationDTO.getHistoriqueClinique())
-//                    .examenClinique(consultationDTO.getExamenClinique())
-//                    .examenMedical(ExamenMedical.builder()
-//                            .typeExamen(consultationDTO.getExamenMedical().getTypeExamen())
-//                            .specificationExamen(consultationDTO.getExamenMedical().getSpecificationExamen())
-//                            .autreSpecification(consultationDTO.getExamenMedical().getAutreSpecification())
-//                            .build())
-//                    .Diagnostic(consultationDTO.getDiagnostic())
-//                    .Ordonnance(consultationDTO.getOrdonnance())
-//                    .jeune(jeune)
-//                    .medecin(medecinRepository.findById(consultationDTO.getMedecinId()).orElse(null)) // Assuming you have a constructor or way to set ID
-//                    .dossierMedical(jeune.getDossierMedial()) // Same assumption
-//                    .build();
-//
-//
-//            return addConsultationToJeune(id,consultation);
-//        }
-//        return null;
-//    }
+    // public Jeune addConsultationDTOToJeune(Long id, ConsultationDTO
+    // consultationDTO) {
+    // System.out.println(consultationDTO);
+    // Optional<Jeune> optionalJeune = jeuneRepository.findById(id);
+    // if (optionalJeune.isPresent()) {
+    // Jeune jeune = optionalJeune.get();
+    // System.out.println("jeune is not null");
+    // Consultation consultation = Consultation.builder()
+    // .date(consultationDTO.getDate())
+    // .motif(consultationDTO.getMotif())
+    // .antecedentPersonnel(AntecedentPersonnel.builder()
+    // .type(consultationDTO.getAntecedentPersonnel().getType())
+    // .specification(consultationDTO.getAntecedentPersonnel().getSpecification())
+    // .specificationAutre(consultationDTO.getAntecedentPersonnel().getSpecificationAutre())
+    // .nombreAnnee(consultationDTO.getAntecedentPersonnel().getNombreAnnee())
+    // .build())
+    // .antecedentFamilial(AntecedentFamilial.builder()
+    // .typeAntFam(consultationDTO.getAntecedentFamilial().getTypeAntFam())
+    // .autre(consultationDTO.getAntecedentFamilial().getAutre())
+    // .build())
+    // .historiqueClinique(consultationDTO.getHistoriqueClinique())
+    // .examenClinique(consultationDTO.getExamenClinique())
+    // .examenMedical(ExamenMedical.builder()
+    // .typeExamen(consultationDTO.getExamenMedical().getTypeExamen())
+    // .specificationExamen(consultationDTO.getExamenMedical().getSpecificationExamen())
+    // .autreSpecification(consultationDTO.getExamenMedical().getAutreSpecification())
+    // .build())
+    // .Diagnostic(consultationDTO.getDiagnostic())
+    // .Ordonnance(consultationDTO.getOrdonnance())
+    // .jeune(jeune)
+    // .medecin(medecinRepository.findById(consultationDTO.getMedecinId()).orElse(null))
+    // // Assuming you have a constructor or way to set ID
+    // .dossierMedical(jeune.getDossierMedial()) // Same assumption
+    // .build();
+    //
+    //
+    // return addConsultationToJeune(id,consultation);
+    // }
+    // return null;
+    // }
 
     @Override
     public Jeune addConsultationToJeune(Long jeuneId, Consultation consultation) {
@@ -158,4 +161,3 @@ public class JeuneServiceImpl implements JeuneService {
         return jeune;
     }
 }
-
