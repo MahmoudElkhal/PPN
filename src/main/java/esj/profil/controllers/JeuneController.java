@@ -75,7 +75,7 @@ public class JeuneController {
 
     @PostMapping("/{id}/antecedentsFamiliaux")
     public ResponseEntity<Jeune> addAntecedentFamilialToJeune(@PathVariable Long id,
-                                                              @RequestBody AntecedentFamilial antecedentFamilial) {
+            @RequestBody AntecedentFamilial antecedentFamilial) {
         Jeune jeune = jeuneService.addAntecedentFamilialToJeune(id, antecedentFamilial);
         if (jeune == null) {
             return ResponseEntity.notFound().build();
@@ -85,7 +85,7 @@ public class JeuneController {
 
     @PostMapping("/{id}/antecedentsPersonnels")
     public ResponseEntity<Jeune> addAntecedentPersonnelToJeune(@PathVariable Long id,
-                                                               @RequestBody AntecedentPersonnel antecedentPersonnel) {
+            @RequestBody AntecedentPersonnel antecedentPersonnel) {
         Jeune jeune = jeuneService.addAntecedentPersonnelToJeune(id, antecedentPersonnel);
         if (jeune == null) {
             return ResponseEntity.notFound().build();

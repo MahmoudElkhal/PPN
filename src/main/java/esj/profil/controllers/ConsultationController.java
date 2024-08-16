@@ -1,6 +1,8 @@
 package esj.profil.controllers;
 
+import esj.profil.dtos.ConsultationDTO;
 import esj.profil.models.Consultation;
+import esj.profil.models.Jeune;
 import esj.profil.services.ConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,16 @@ public class ConsultationController {
     public ResponseEntity<Consultation> getConsultationById(@PathVariable Long id) {
         Consultation consultation = consultationService.getConsultationById(id);
         return new ResponseEntity<>(consultation, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Consultation> updateConsultation(@PathVariable Long id,
+            @RequestBody ConsultationDTO consultationDTO) {
+        Consultation consultation = consultationService.updateConsultation(id, consultationDTO);
+        if (consultation == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(consultation);
     }
 
     @GetMapping
